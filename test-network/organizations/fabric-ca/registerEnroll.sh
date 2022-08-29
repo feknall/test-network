@@ -49,9 +49,14 @@ function createOrg1() {
   fabric-ca-client register --caname ca-org1 --id.name user1 --id.secret user1pw --id.type client --tls.certfiles "${PWD}/organizations/fabric-ca/org1/ca-cert.pem"
   { set +x; } 2>/dev/null
 
-  infoln "Registering trainer"
+  infoln "Registering trainer1"
   set -x
   fabric-ca-client register --caname ca-org1 --id.name trainer1 --id.secret trainer1pw --id.type client --tls.certfiles "${PWD}/organizations/fabric-ca/org1/ca-cert.pem" --id.attrs 'trainer=true:ecert'
+  { set +x; } 2>/dev/null
+
+  infoln "Registering trainer2"
+  set -x
+  fabric-ca-client register --caname ca-org1 --id.name trainer2 --id.secret trainer2pw --id.type client --tls.certfiles "${PWD}/organizations/fabric-ca/org1/ca-cert.pem" --id.attrs 'trainer=true:ecert'
   { set +x; } 2>/dev/null
 
   infoln "Registering aggregator"
@@ -98,12 +103,19 @@ function createOrg1() {
 
   cp "${PWD}/organizations/peerOrganizations/org1.example.com/msp/config.yaml" "${PWD}/organizations/peerOrganizations/org1.example.com/users/User1@org1.example.com/msp/config.yaml"
 
-  infoln "Generating the trainer msp"
+  infoln "Generating the trainer1 msp"
   set -x
   fabric-ca-client enroll -u https://trainer1:trainer1pw@localhost:7054 --caname ca-org1 -M "${PWD}/organizations/peerOrganizations/org1.example.com/users/Trainer1@org1.example.com/msp" --tls.certfiles "${PWD}/organizations/fabric-ca/org1/ca-cert.pem"
   { set +x; } 2>/dev/null
 
   cp "${PWD}/organizations/peerOrganizations/org1.example.com/msp/config.yaml" "${PWD}/organizations/peerOrganizations/org1.example.com/users/Trainer1@org1.example.com/msp/config.yaml"
+
+  infoln "Generating the trainer2 msp"
+  set -x
+  fabric-ca-client enroll -u https://trainer2:trainer2pw@localhost:7054 --caname ca-org1 -M "${PWD}/organizations/peerOrganizations/org1.example.com/users/Trainer2@org1.example.com/msp" --tls.certfiles "${PWD}/organizations/fabric-ca/org1/ca-cert.pem"
+  { set +x; } 2>/dev/null
+
+  cp "${PWD}/organizations/peerOrganizations/org1.example.com/msp/config.yaml" "${PWD}/organizations/peerOrganizations/org1.example.com/users/Trainer2@org1.example.com/msp/config.yaml"
 
   infoln "Generating the aggregator msp"
   set -x
@@ -183,9 +195,14 @@ function createOrg2() {
   fabric-ca-client register --caname ca-org2 --id.name user1 --id.secret user1pw --id.type client --tls.certfiles "${PWD}/organizations/fabric-ca/org2/ca-cert.pem"
   { set +x; } 2>/dev/null
 
-  infoln "Registering trainer"
+  infoln "Registering trainer1"
   set -x
   fabric-ca-client register --caname ca-org2 --id.name trainer1 --id.secret trainer1pw --id.type client --tls.certfiles "${PWD}/organizations/fabric-ca/org2/ca-cert.pem" --id.attrs 'trainer=true:ecert'
+  { set +x; } 2>/dev/null
+
+  infoln "Registering trainer2"
+  set -x
+  fabric-ca-client register --caname ca-org2 --id.name trainer2 --id.secret trainer2pw --id.type client --tls.certfiles "${PWD}/organizations/fabric-ca/org2/ca-cert.pem" --id.attrs 'trainer=true:ecert'
   { set +x; } 2>/dev/null
 
   infoln "Registering aggregator"
@@ -232,12 +249,19 @@ function createOrg2() {
 
   cp "${PWD}/organizations/peerOrganizations/org2.example.com/msp/config.yaml" "${PWD}/organizations/peerOrganizations/org2.example.com/users/User1@org2.example.com/msp/config.yaml"
 
-  infoln "Generating the trainer msp"
+  infoln "Generating the trainer1 msp"
   set -x
   fabric-ca-client enroll -u https://trainer1:trainer1pw@localhost:8054 --caname ca-org2 -M "${PWD}/organizations/peerOrganizations/org2.example.com/users/Trainer1@org2.example.com/msp" --tls.certfiles "${PWD}/organizations/fabric-ca/org2/ca-cert.pem"
   { set +x; } 2>/dev/null
 
   cp "${PWD}/organizations/peerOrganizations/org2.example.com/msp/config.yaml" "${PWD}/organizations/peerOrganizations/org2.example.com/users/Trainer1@org2.example.com/msp/config.yaml"
+
+  infoln "Generating the trainer2 msp"
+  set -x
+  fabric-ca-client enroll -u https://trainer2:trainer2pw@localhost:8054 --caname ca-org2 -M "${PWD}/organizations/peerOrganizations/org2.example.com/users/Trainer2@org2.example.com/msp" --tls.certfiles "${PWD}/organizations/fabric-ca/org2/ca-cert.pem"
+  { set +x; } 2>/dev/null
+
+  cp "${PWD}/organizations/peerOrganizations/org2.example.com/msp/config.yaml" "${PWD}/organizations/peerOrganizations/org2.example.com/users/Trainer2@org2.example.com/msp/config.yaml"
 
   infoln "Generating the aggregator msp"
   set -x
